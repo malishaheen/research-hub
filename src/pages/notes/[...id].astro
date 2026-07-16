@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map(note => ({ params: { id: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+<Layout title={note.data.title}>
+  <h1 class="text-3xl font-bold mb-2">{note.data.title}</h1>
+  <p class="text-sm text-gray-500 mb-8">
+    {note.data.category} · {note.data.date.toDateString()} · {note.data.status}
+  </p>
+  <div class="prose prose-slate max-w-none">
+    <Content />
+  </div>
+</Layout>

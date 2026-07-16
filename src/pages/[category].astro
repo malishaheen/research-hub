@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+export async function getStaticPaths() {
+  return [
+    { params: { category: 'cs' } },
+    { params: { category: 'data-science' } },
+    { params: { category: 'management' } },
+  ];
+}
+
+const { category } = Astro.params;
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .filter(n => n.data.category === category);
+---
+<Layout title={category}>
+  <h1 class="text-3xl font-bold mb-8 capitalize">{category}</h1>
+  <ul class="space-y-4">
+    {notes.map(note => (
+      <li class="border-b border-gray-200 pb-4">
+        <a href={`/notes/${note.id}`} class="text-lg font-semibold text-blue-700 hover:underline">
+          {note.data.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>
