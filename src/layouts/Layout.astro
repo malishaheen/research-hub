@@ -9,11 +9,12 @@ const { title } = Astro.props;
     <title>{title} · Research Hub</title>
   </head>
   <body class="bg-gray-50 text-gray-900 min-h-screen">
-    <nav class="max-w-3xl mx-auto px-6 py-5 flex gap-6 text-sm font-medium border-b border-gray-200">
+   <nav class="max-w-3xl mx-auto px-6 py-5 flex gap-6 text-sm font-medium border-b border-gray-200">
       <a href="/" class="hover:text-blue-600">Home</a>
       <a href="/cs" class="hover:text-blue-600">CS</a>
       <a href="/data-science" class="hover:text-blue-600">Data Science</a>
       <a href="/management" class="hover:text-blue-600">Management</a>
+      <a href="/about" class="hover:text-blue-600">About</a>
     </nav>
     <main class="max-w-3xl mx-auto px-6 py-10">
       <slot />
