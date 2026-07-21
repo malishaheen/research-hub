@@ -1,0 +1,32 @@
+---
+// src/pages/tools/admissions.astro
+// Copy admissions-upload-app.html into your `public/tools/` folder first,
+// so it's served at /tools/admissions-dashboard.html
+---
+<html lang="en">
+  <head>
+    <title>Admissions Dashboard — Research Hub</title>
+  </head>
+  <body>
+    <iframe
+      id="admissionsFrame"
+      src="/tools/admissions-dashboard.html"
+      style="width:100%; height:900px; border:none; border-radius:12px; display:block;"
+      loading="lazy"
+      title="Admissions Intake Dashboard"
+    ></iframe>
+
+    <script>
+      // Listens for the resize messages posted by the dashboard's own script
+      // and grows/shrinks the iframe to match its real content height.
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'admissions-dashboard-resize') {
+          const frame = document.getElementById('admissionsFrame');
+          if (frame) {
+            frame.style.height = event.data.height + 'px';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
