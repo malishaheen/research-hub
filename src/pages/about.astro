@@ -3,12 +3,39 @@ import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="About">
   <div class="max-w-2xl mx-auto">
+
+    <div class="bg-blue-50 border border-blue-100 rounded-xl p-8 mb-12">
+      <img
+        src="/images/alqadir-logo.jpeg"
+        alt="Al-Qadir University Project Trust logo"
+        class="h-24 mb-6"
+      />
+      <h1 class="text-4xl font-bold mb-6 text-blue-950">About the Department</h1>
+      <div class="prose prose-slate max-w-none space-y-4 text-lg">
+        <p>
+          The Department of Computer Science at Al-Qadir University Project
+          Trust offers a BS in Computer Science built around a thesis-driven
+          final semester, giving students hands-on research experience before
+          graduation. The program recently completed NCEAC accreditation,
+          Pakistan's national accreditation standard for computing programs.
+        </p>
+        <p>
+          The department emphasizes applied, industry-relevant computer
+          science -- data science, software engineering, and AI -- taught by
+          faculty who bring direct industry and cross-sector experience into
+          the classroom.
+        </p>
+      </div>
+    </div>
+
+    <hr class="my-10 border-gray-200" />
+
     <img
       src="/profile_pic.jpeg"
       alt="Muhammad Ali Raza Shaheen"
       class="w-40 h-40 rounded-full object-cover mb-8"
     />
-    <h1 class="text-3xl font-bold mb-6">About</h1>
+    <h2 class="text-2xl font-bold mb-6">About Me</h2>
     <div class="prose prose-slate max-w-none space-y-4">
       <p>
         I'm Muhammad Ali Raza Shaheen, Head of the Computer Science Department
@@ -39,28 +66,5 @@ import Layout from '../layouts/Layout.astro';
       </p>
     </div>
 
-    <hr class="my-10 border-gray-200" />
-
-    <img
-      src="/images/alqadir-logo.jpeg"
-      alt="Al-Qadir University Project Trust logo"
-      class="h-20 mb-6"
-    />
-    <h2 class="text-2xl font-bold mb-4">About the Department</h2>
-    <div class="prose prose-slate max-w-none space-y-4">
-      <p>
-        The Department of Computer Science at Al-Qadir University Project
-        Trust offers a BS in Computer Science built around a thesis-driven
-        final semester, giving students hands-on research experience before
-        graduation. The program recently completed NCEAC accreditation,
-        Pakistan's national accreditation standard for computing programs.
-      </p>
-      <p>
-        The department emphasizes applied, industry-relevant computer
-        science -- data science, software engineering, and AI -- taught by
-        faculty who bring direct industry and cross-sector experience into
-        the classroom.
-      </p>
-    </div>
   </div>
 </Layout>
