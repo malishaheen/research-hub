@@ -3,14 +3,13 @@ import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="About">
   <div class="max-w-2xl mx-auto">
-
-    <div class="bg-blue-50 border border-blue-100 rounded-xl p-8">
+    <div class="bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-2xl p-8 shadow-sm">
       <img
         src="/images/alqadir-logo.jpeg"
         alt="Al-Qadir University Project Trust logo"
-        class="h-24 mb-6"
+        class="h-24 mb-6 rounded-lg"
       />
-      <h1 class="text-4xl font-bold mb-6 text-blue-950">About the Department</h1>
+      <h1 class="text-4xl font-extrabold tracking-tight mb-6 text-indigo-950">About the Department</h1>
       <div class="prose prose-slate max-w-none space-y-4 text-lg">
         <p>
           The Department of Computer Science at Al-Qadir University Project
@@ -26,7 +25,11 @@ import Layout from '../layouts/Layout.astro';
           the classroom.
         </p>
       </div>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <span class="text-sm font-semibold px-3 py-1.5 rounded-full bg-white border border-indigo-200 text-indigo-700">NCEAC Accredited</span>
+        <span class="text-sm font-semibold px-3 py-1.5 rounded-full bg-white border border-indigo-200 text-indigo-700">Thesis-Driven Final Semester</span>
+        <span class="text-sm font-semibold px-3 py-1.5 rounded-full bg-white border border-indigo-200 text-indigo-700">Applied Research Focus</span>
+      </div>
     </div>
-
   </div>
 </Layout>

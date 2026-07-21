@@ -10,14 +10,21 @@ const tools = [
 ];
 ---
 <Layout title="Tools">
-  <h1 class="text-3xl font-bold mb-8">Tools</h1>
-  <ul class="space-y-6">
+  <h1 class="text-4xl font-extrabold tracking-tight mb-8">Tools</h1>
+  <ul class="space-y-4">
     {tools.map(tool => (
-      <li class="border border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors">
-        <a href={tool.href} class="text-lg font-semibold text-blue-700 hover:underline">
-          {tool.title}
+      <li class="border border-slate-200 rounded-xl p-6 bg-white hover:border-indigo-300 hover:shadow-md transition-all">
+        <a href={tool.href} class="flex items-start gap-4">
+          <span class="flex-shrink-0 w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
+            📊
+          </span>
+          <span>
+            <span class="block text-lg font-semibold text-slate-900 hover:text-indigo-700">
+              {tool.title}
+            </span>
+            <span class="block text-slate-700 mt-1">{tool.description}</span>
+          </span>
         </a>
-        <p class="text-gray-700 mt-2">{tool.description}</p>
       </li>
     ))}
   </ul>

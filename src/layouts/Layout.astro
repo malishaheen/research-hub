@@ -6,19 +6,40 @@ const { title } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <title>{title} · Research Hub</title>
   </head>
-  <body class="bg-gray-50 text-gray-900 min-h-screen">
-   <nav class="max-w-3xl mx-auto px-6 py-5 flex gap-6 text-sm font-medium border-b border-gray-200">
-      <a href="/" class="hover:text-blue-600">Home</a>
-      <a href="/cs" class="hover:text-blue-600">CS</a>
-      <a href="/data-science" class="hover:text-blue-600">Data Science</a>
-      <a href="/management" class="hover:text-blue-600">Management</a>
-      <a href="/about" class="hover:text-blue-600">About</a>
-      <a href="/tools" class="hover:text-blue-600">Tools</a>
+  <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-extrabold text-lg tracking-tight text-slate-900">
+          Al-Qadir <span class="text-indigo-600">Research</span>
+        </a>
+        <div class="flex gap-1 text-sm font-medium">
+          <a href="/" class="px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors">Home</a>
+          <a href="/cs" class="px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors">CS</a>
+          <a href="/data-science" class="px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors">Data Science</a>
+          <a href="/management" class="px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors">Management</a>
+          <a href="/tools" class="px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors">Tools</a>
+          <a href="/about" class="px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors">About</a>
+        </div>
+      </div>
     </nav>
-    <main class="max-w-3xl mx-auto px-6 py-10">
+
+    <main class="max-w-4xl mx-auto px-6 py-14 flex-1 w-full">
       <slot />
     </main>
+
+    <footer class="border-t border-slate-200 mt-16">
+      <div class="max-w-4xl mx-auto px-6 py-8 text-sm text-slate-500 flex flex-col sm:flex-row justify-between gap-2">
+        <span>© 2026 Al-Qadir University Project Trust — Department of Computer Science</span>
+        <span>Built by Muhammad Ali Raza Shaheen</span>
+      </div>
+    </footer>
   </body>
 </html>
