@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const tools = [
+  {
+    title: 'Admissions Data Analysis Portal',
+    description: 'Upload an admissions export (CSV or Excel) to get live intake stats, duplicate-submission detection, and an adjustable merit shortlist.',
+    href: '/tools/admissions',
+  },
+];
+---
+<Layout title="Tools">
+  <h1 class="text-3xl font-bold mb-8">Tools</h1>
+  <ul class="space-y-6">
+    {tools.map(tool => (
+      <li class="border border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors">
+        <a href={tool.href} class="text-lg font-semibold text-blue-700 hover:underline">
+          {tool.title}
+        </a>
+        <p class="text-gray-700 mt-2">{tool.description}</p>
+      </li>
+    ))}
+  </ul>
+</Layout>
