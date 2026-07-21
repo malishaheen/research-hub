@@ -6,7 +6,27 @@ const allNotes = await getCollection('notes', ({ data }) => !data.draft);
 const sorted = allNotes.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 <Layout title="Research Hub">
-  <h1 class="text-3xl font-bold mb-8">Latest Updates</h1>
+  <h1 class="text-4xl font-bold mb-2">Al-Qadir's Research Portal</h1>
+  <p class="text-gray-600 mb-10">Research, notes, and tools from the Al-Qadir University Project Trust community.</p>
+
+  <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 mb-12 flex items-center gap-6">
+    <img
+      src="/images/alqadir-logo.jpeg"
+      alt="Al-Qadir University Project Trust logo"
+      class="h-16 w-16 object-contain flex-shrink-0"
+    />
+    <div>
+      <h2 class="text-xl font-bold text-blue-950 mb-1">Department of Computer Science</h2>
+      <p class="text-gray-700">
+        NCEAC-accredited BS in Computer Science with a thesis-driven final
+        semester, applied research focus, and faculty bringing real
+        industry experience into the classroom.
+        <a href="/about" class="text-blue-700 hover:underline font-medium">Learn more →</a>
+      </p>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-bold mb-8">Latest Updates</h2>
   <ul class="space-y-6">
     {sorted.map(note => (
       <li class="border-b border-gray-200 pb-6">
