@@ -55,9 +55,9 @@ const externalResources = [
   },
   {
     title: 'HEC Pakistan',
-    description: 'Higher Education Commission — policies, funding, and degree attestation.',
+    description: 'Higher Education Commission Pakistan - policies, funding, and degree attestation.',
     href: 'https://www.hec.gov.pk/',
-    icon: '🇵🇰',
+    icon: '🌐',
   },
 ];
 ---
@@ -86,12 +86,7 @@ const externalResources = [
   <p class="text-slate-600 mb-6">Useful sites for research, papers, and academic administration.</p>
   <div class="grid sm:grid-cols-2 gap-4">
     {externalResources.map(resource => (
-      
-      <a
-        target="_blank"
-        rel="noopener"
-        class="border border-slate-200 rounded-xl p-5 bg-white hover:border-indigo-300 hover:shadow-md transition-all flex items-start gap-3"
-      >
+      <a href={resource.href} target="_blank" rel="noopener" class="border border-slate-200 rounded-xl p-5 bg-white hover:border-indigo-300 hover:shadow-md transition-all flex items-start gap-3">
         <span class="text-xl flex-shrink-0">{resource.icon}</span>
         <span>
           <span class="block font-semibold text-slate-900">{resource.title}</span>
