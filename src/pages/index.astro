@@ -13,7 +13,15 @@ const categoryStyles: Record<string, string> = {
 ---
 <Layout title="Research Hub">
   <h1 class="text-4xl font-extrabold tracking-tight mb-2">Al-Qadir's Research Portal</h1>
-  <p class="text-slate-600 mb-10">Research, notes, and tools from the Al-Qadir University Project Trust community.</p>
+  <p class="text-slate-600 mb-6">Research, notes, and tools from the Al-Qadir University Project Trust community.</p>
+
+  <div class="ticker-wrap bg-slate-900 text-slate-100 rounded-lg mb-10 flex items-center">
+    <span class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 text-xs font-bold uppercase tracking-wide bg-red-600 rounded-l-lg">
+      <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+      Live
+    </span>
+    <div class="ticker-track px-4 py-2 text-sm" id="tickerTrack">Loading tech headlines…</div>
+  </div>
 
   <div class="bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-2xl p-6 mb-12 flex items-center gap-6 shadow-sm">
     <img
@@ -50,3 +58,66 @@ const categoryStyles: Record<string, string> = {
     ))}
   </ul>
 </Layout>
+
+<style>
+  .ticker-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .ticker-track.scrolling {
+    animation: ticker-scroll 45s linear infinite;
+  }
+  .ticker-track.scrolling:hover {
+    animation-play-state: paused;
+  }
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: inline-block;
+    margin-right: 2.5rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  .ticker-item:hover {
+    text-decoration: underline;
+  }
+  .ticker-sep {
+    margin-right: 2.5rem;
+    color: #64748b;
+  }
+</style>
+
+<script>
+  async function loadTicker() {
+    const el = document.getElementById('tickerTrack');
+    if (!el) return;
+    try {
+      const idsRes = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json');
+      const ids = await idsRes.json();
+      const top = ids.slice(0, 8);
+      const stories = await Promise.all(
+        top.map((id: number) =>
+          fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r => r.json())
+        )
+      );
+      const items = stories
+        .filter(s => s && s.title)
+        .map(s => {
+          const url = s.url || `https://news.ycombinator.com/item?id=${s.id}`;
+          return `<a href="${url}" target="_blank" rel="noopener" class="ticker-item">${s.title}</a>`;
+        })
+        .join('<span class="ticker-sep">•</span>');
+      el.innerHTML = items + '<span class="ticker-sep">•</span>' + items;
+      el.classList.add('scrolling');
+    } catch (e) {
+      el.textContent = 'Live headlines unavailable right now — check back later.';
+    }
+  }
+  loadTicker();
+</script>

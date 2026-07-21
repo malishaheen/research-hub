@@ -6,17 +6,70 @@ const tools = [
     title: 'Admissions Data Analysis Portal',
     description: 'Upload an admissions export (CSV or Excel) to get live intake stats, duplicate-submission detection, and an adjustable merit shortlist.',
     href: '/tools/admissions',
+    icon: '📊',
+  },
+];
+
+const externalResources = [
+  {
+    title: 'arXiv — cs',
+    description: 'Latest preprints across all Computer Science subfields.',
+    href: 'https://arxiv.org/list/cs/recent',
+    icon: '📄',
+  },
+  {
+    title: 'Papers with Code',
+    description: 'Research papers paired with their official implementations and benchmarks.',
+    href: 'https://paperswithcode.com/',
+    icon: '💻',
+  },
+  {
+    title: 'Google Scholar',
+    description: 'Search scholarly literature, citations, and author profiles.',
+    href: 'https://scholar.google.com/',
+    icon: '🎓',
+  },
+  {
+    title: 'GitHub Trending',
+    description: 'See what repositories the developer community is starring today.',
+    href: 'https://github.com/trending',
+    icon: '🐙',
+  },
+  {
+    title: 'Kaggle',
+    description: 'Datasets, competitions, and notebooks for data science and ML.',
+    href: 'https://www.kaggle.com/',
+    icon: '📈',
+  },
+  {
+    title: 'Overleaf',
+    description: 'Collaborative online LaTeX editor for papers and theses.',
+    href: 'https://www.overleaf.com/',
+    icon: '✍️',
+  },
+  {
+    title: 'NCEAC',
+    description: 'National Computing Education Accreditation Council, Pakistan.',
+    href: 'https://www.nceac.pk/',
+    icon: '🏛️',
+  },
+  {
+    title: 'HEC Pakistan',
+    description: 'Higher Education Commission — policies, funding, and degree attestation.',
+    href: 'https://www.hec.gov.pk/',
+    icon: '🇵🇰',
   },
 ];
 ---
 <Layout title="Tools">
   <h1 class="text-4xl font-extrabold tracking-tight mb-8">Tools</h1>
-  <ul class="space-y-4">
+
+  <ul class="space-y-4 mb-16">
     {tools.map(tool => (
       <li class="border border-slate-200 rounded-xl p-6 bg-white hover:border-indigo-300 hover:shadow-md transition-all">
         <a href={tool.href} class="flex items-start gap-4">
-          <span class="flex-shrink-0 w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
-            📊
+          <span class="flex-shrink-0 w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg">
+            {tool.icon}
           </span>
           <span>
             <span class="block text-lg font-semibold text-slate-900 hover:text-indigo-700">
@@ -28,4 +81,23 @@ const tools = [
       </li>
     ))}
   </ul>
+
+  <h2 class="text-2xl font-bold mb-2">External Resources</h2>
+  <p class="text-slate-600 mb-6">Useful sites for research, papers, and academic administration.</p>
+  <div class="grid sm:grid-cols-2 gap-4">
+    {externalResources.map(resource => (
+      
+        href={resource.href}
+        target="_blank"
+        rel="noopener"
+        class="border border-slate-200 rounded-xl p-5 bg-white hover:border-indigo-300 hover:shadow-md transition-all flex items-start gap-3"
+      >
+        <span class="text-xl flex-shrink-0">{resource.icon}</span>
+        <span>
+          <span class="block font-semibold text-slate-900">{resource.title}</span>
+          <span class="block text-sm text-slate-600 mt-0.5">{resource.description}</span>
+        </span>
+      </a>
+    ))}
+  </div>
 </Layout>
