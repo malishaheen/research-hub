@@ -312,6 +312,23 @@
 
   <section>
     <div class="sec-head">
+      <h2>Confirmation Status <span class="num-badge" id="statusBadge"></span></h2>
+      <span class="note">Confirmed vs Refund (Expired) vs everything else, plus every raw status value found in the file</span>
+    </div>
+    <div class="grid-charts" style="grid-template-columns:1fr 1.3fr;">
+      <div class="card">
+        <h3>Confirmed / Refund / Other</h3>
+        <div class="chart-box"><canvas id="confirmChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>All Status Values (raw)</h3>
+        <div class="chart-box" style="height:420px;"><canvas id="statusChart"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
       <h2>Shortlist Builder</h2>
       <span class="note">Merit computed from academic record — adjust to match your admission policy</span>
     </div>
@@ -511,6 +528,45 @@ function renderDashboard(){
     options:{ plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}, ticks:{font:{size:10.5}}}, y:{grid:{color:'#f0e9dd'}}}, responsive:true, maintainAspectRatio:false }
   });
 
+  function statusGroup(s){
+    if(!s) return 'No Status';
+    const norm = s.trim().toLowerCase();
+    if(norm==='confirmed') return 'Confirmed';
+    if(norm==='expired') return 'Refund';
+    return 'Other / Pending';
+  }
+  const groupCounts = { 'Confirmed':0, 'Refund':0, 'Other / Pending':0, 'No Status':0 };
+  RAW.forEach(d=>{ groupCounts[statusGroup(d.status)]++; });
+  const totalForStatus = RAW.length || 1;
+  const confirmedPct = Math.round(groupCounts['Confirmed']/totalForStatus*1000)/10;
+  const refundPct = Math.round(groupCounts['Refund']/totalForStatus*1000)/10;
+  document.getElementById('statusBadge').textContent =
+    groupCounts['Confirmed'] + ' confirmed (' + confirmedPct + '%) \u00b7 ' + groupCounts['Refund'] + ' refund (' + refundPct + '%)';
+
+  chartInstances.confirm = new Chart(document.getElementById('confirmChart'), {
+    type:'doughnut',
+    data:{
+      labels: Object.keys(groupCounts).map(k=>k + ' (' + (Math.round(groupCounts[k]/totalForStatus*1000)/10) + '%)'),
+      datasets:[{ data:Object.values(groupCounts), backgroundColor:[green,'#a3372f',gold,'#c9a06a'], borderWidth:2, borderColor:'#fff' }]
+    },
+    options:{ plugins:{legend:{position:'bottom', labels:{boxWidth:10, padding:12, font:{size:11}}}}, responsive:true, maintainAspectRatio:false, cutout:'62%' }
+  });
+
+  const statusCounts = countBy(RAW,'status');
+  const statusLabels = Object.keys(statusCounts);
+  chartInstances.status = new Chart(document.getElementById('statusChart'), {
+    type:'bar',
+    data:{
+      labels: statusLabels,
+      datasets:[{
+        data: statusLabels.map(l=>statusCounts[l]),
+        backgroundColor: statusLabels.map(l=> l==='Confirmed' ? green : (l==='Expired' ? '#a3372f' : palette[0])),
+        borderRadius:4, maxBarThickness:20
+      }]
+    },
+    options:{ indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{grid:{color:'#f0e9dd'}}, y:{grid:{display:false}, ticks:{font:{size:10.5}}}}, responsive:true, maintainAspectRatio:false }
+  });
+
   const dupApplicants = RAW.filter(d=>d.submissionCount>1).sort((a,b)=>b.submissionCount-a.submissionCount);
   document.getElementById('dupBadge').textContent = dupApplicants.length + ' of ' + META.uniqueApplicants + ' resubmitted';
 
@@ -661,6 +717,7 @@ const HEADER_MAP = {
   gender: 'Gender',
   district: 'District',
   province: 'Province',
+  status: 'Status',
   board: 'Matric Board',
   major: 'Inter Major',
   obtained1: 'Matric Obtained',
@@ -750,6 +807,7 @@ function processRows(headers, dataRows, filename){
       gender: (get(row,'gender') ?? '').toString().trim() || null,
       district: (get(row,'district') ?? '').toString().trim() || null,
       province: (get(row,'province') ?? '').toString().trim() || null,
+      status: (get(row,'status') ?? '').toString().trim() || null,
       board: (get(row,'board') ?? '').toString().trim() || null,
       major: (get(row,'major') ?? '').toString().trim() || null,
       obtained1: get(row,'obtained1'), total1: get(row,'total1'),
@@ -809,7 +867,7 @@ function processRows(headers, dataRows, filename){
 
     uniqueRecords.push({
       name: latest.name, program: latest.program, cnic: latest.cnic, gender: latest.gender,
-      district: latest.district, province: latest.province, board: latest.board, major: latest.major,
+      district: latest.district, province: latest.province, status: latest.status, board: latest.board, major: latest.major,
       matricPct, interPct, interStage,
       admissionTest: latest.admissionTest, testType: latest.testType, testScore: latest.testScore, testTotal: latest.testTotal,
       mobile: latest.mobile, parentMobile: latest.parentMobile, email: latest.email,
